@@ -1,0 +1,41 @@
+@import './utils.less';
+
+// Generic nav positioning and styles
+nav {
+  .position(absolute, 0, 0, auto, 0);
+  transform: translate3d(0,0,0);
+  transition: all 200ms ease-out;
+  z-index: 10;
+
+  .nav-item {
+    .font-m1;
+    color: @color-ancillary;
+    display: inline-block;
+    height: 3rem;
+    text-align: center;
+    width: 3rem;
+
+    &:active { opacity: .5; }
+
+    [class^="icon-"],
+    [class*=" icon-"] {
+      line-height: 3rem;
+      vertical-align: middle;
+    }
+  }
+  .nav-group {
+    .position(absolute, 0, auto, auto, 0);
+    z-index: 1;
+
+    &.right {
+      left: auto;
+      right: 0;
+    }
+  }
+}
+
+// Custom nav for auth
+@media screen and (min-width: 40em) {
+  .page.auth .nav-group { display: none; }
+  .page.not-found .nav-group { display: none; }
+}
