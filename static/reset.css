@@ -133,7 +133,7 @@ table {
 /* custom */
 
 a {
-  color: #7e8c8d;
+  color: rgba(255, 255, 255, 0.4);
   text-decoration: none;
   -webkit-backface-visibility: hidden;
 }
@@ -171,16 +171,14 @@ body {
   overflow-x: hidden;
 }
 
-html {
-  font-size: 62.5%;
-  /*10 ÷ 16 × 100% = 62.5%*/
-}
+
 /*
 body {
   -webkit-text-size-adjust: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   background-color: #192028;
 }*/
+
 
 /*@media screen and (min-width: 680px) {
   body {

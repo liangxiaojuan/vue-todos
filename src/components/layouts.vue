@@ -6,71 +6,81 @@
       <!--<a href="#" class="js-toggle-language" v-for="language in languages">{{language}}</a>-->
       <!--</div>-->
       <!--<div class="btns-group-vertical">
-            <a href="#" class="js-user-menu btn-secondary">
-              <span class="icon-arrow-up"></span>
-              <span class="icon-arrow-down"></span>
-              敖德萨所大所
-            </a>
-            <a class="js-logout btn-secondary">
-            </a>
-          </div>-->
+                              <a href="#" class="js-user-menu btn-secondary">
+                                <span class="icon-arrow-up"></span>
+                                <span class="icon-arrow-down"></span>
+                                敖德萨所大所
+                              </a>
+                              <a class="js-logout btn-secondary">
+                              </a>
+                            </div>-->
       <!--<div class="btns-group">
-            <a href="" class="btn-secondary">
-              登录
-            </a>
-            <a href="" class="btn-secondary">
-              注册
-            </a>
-          </div>-->
+                              <a href="" class="btn-secondary">
+                                登录
+                              </a>
+                              <a href="" class="btn-secondary">
+                                注册
+                              </a>
+                            </div>-->
       <div class="list-todos">
-        <a class="js-new-list link-list-new">
+        <a class=" link-list-new">
           <span class="icon-plus">
           </span>
           新增
         </a>
-        <a href="" title="" class="list-todo activeListClass list" v-for="list in lists">
-  
-          <!--<span class="icon-lock"></span>-->
-          <span class="count-list">{{list.count}}</span>
-          {{list.name}}
+        <a @click="goList(list.id)" class="list-todo activeListClass list" v-for="list in lists">
+          <span class="icon-lock" v-if="list.locked"></span>
+          <span class="count-list" v-if="list.count > 0">{{list.count}}</span>
+          {{list.title}}
         </a>
   
       </div>
     </section>
     <!--<div class="notifications">
-              <div class="notification">
-                <span class="icon-sync"></span>
-                <div class="meta">
-                  <div class="title-notification">
-                    dadasdasd
-                  </div>
-                  <div class="description">
-                    asdasdasdasd
-                  </div>
-                </div>
-              </div>
-            </div>-->
+                                <div class="notification">
+                                  <span class="icon-sync"></span>
+                                  <div class="meta">
+                                    <div class="title-notification">
+                                      dadasdasd
+                                    </div>
+                                    <div class="description">
+                                      asdasdasdasd
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>-->
     <div class="content-overlay"></div>
     <div id="content-container">
-    <list></list>
+      <!--<list></list>-->
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
 import list from './lists';
+import { getTodoList } from '../api/api';
 export default {
   data() {
     return {
       languages: ['asdas', 'asdas', 'aasdas'],
-      lists: [{ name: '12312', count: 1232 }, { name: '12312', count: 1232 },
-      { name: '12312', count: 1232 },
-      { name: '12312', count: 1232 }],
+      lists: [],
       text: '111'
     };
   },
+  created() {
+    getTodoList().then(res => {
+      console.log(res.data.todos);
+      this.lists = res.data.todos;
+    });
+  },
   components: {
     list
+  },
+  methods: {
+    goList(id) {
+      this.$router.push({ name: 'list', params: { id: id } });
+    }
   }
 };
 </script>
@@ -107,6 +117,10 @@ body {
 
 #menu {
   .position(absolute, 0, 0, 0, 0, @menu-width);
+  background-color: #315481;
+  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #content-container {

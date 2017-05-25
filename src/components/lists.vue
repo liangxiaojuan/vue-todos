@@ -2,14 +2,14 @@
   <div class="page lists-show">
     <nav class="js-title-nav">
       <!--<form class="js-edit-form list-edit-form">
-          <input type="text" name="name" value="">
-          <div class="nav-group right">
-          <a href="#" class="js-cancel nav-item">
-            <span class="icon-close js-cancel" title="dsd">
-            </span>
-          </a>
-          </div>
-          </form>-->
+                                                        <input type="text" name="name" value="">
+                                                        <div class="nav-group right">
+                                                        <a href="#" class="js-cancel nav-item">
+                                                          <span class="icon-close js-cancel" title="dsd">
+                                                          </span>
+                                                        </a>
+                                                        </div>
+                                                        </form>-->
       <div class="nav-group">
         <a href="#" class="js-menu nav-item">
           <span class="icon-list-unordered" title="请输入">
@@ -18,36 +18,28 @@
       </div>
   
       <h1 class="js-edit-list title-page">
-        <span class="title-wrapper">asdasdasd</span>
-        <span class="count-list">12312</span>
+        <span class="title-wrapper">{{todo.title}}</span>
+        <span class="count-list">{{todo.count}}</span>
       </h1>
   
       <div class="nav-group right">
-        <div class="nav-item options-mobile">
-          <select class="list-edit">
-            <option disabled selected>
-              asdasdasds
-            </option>
-  
-            <option value="public">dsds</option>
-  
-            <option value="private">sadsad</option>
-  
-            <option value="delete">asdasd</option>
-          </select>
-          <span class="icon-cog"></span>
-        </div>
+        <!--<div class="nav-item options-mobile">
+                            <select class="list-edit">
+                              <option disabled selected>
+                                asdasdasds
+                              </option>
+                              <option value="public">dsds</option>
+                              <option value="private">sadsad</option>
+                              <option value="delete">asdasd</option>
+                            </select>
+                            <span class="icon-cog"></span>
+                          </div>-->
         <div class="options-web">
           <a class="js-toggle-list-privacy nav-item">
-  
-            <!--<span class="icon-lock">
-                    </span>
-          -->
-            <span class="icon-unlock">
+            <span class="icon-lock" v-if="todo.locked"></span>
+            <span class="icon-unlock" v-else>
             </span>
-  
           </a>
-  
           <a class="js-delete-list nav-item">
             <span class="icon-trash">
             </span>
@@ -55,40 +47,79 @@
         </div>
       </div>
   
-      <form class="js-todo-new todo-new input-symbol">
-        <input type="text" placeholder='请输入' />
+      <form class="todo-new input-symbol">
+        <input type="text" v-model="text" placeholder='请输入' @keyup.enter="onAdd" />
         <span class="icon-add js-todo-add"></span>
       </form>
     </nav>
     <div class="content-scrollable list-items">
-    <item v-for="a in 10"></item>
-      <!--<div class="wrapper-message">
-        <div class="title-message">sdsd</div>
-        <div class="subtitle-message">dsdss</div>
-      </div>-->
-  
-      <!--<div class="wrapper-message">
-          <div class="title-message">{{_ 'lists.show.loading'}}</div>
-          </div>-->
-  
+      <item :list="list" v-for="list in lists"></item>
+<!--<div class="wrapper-message">
+<div class="title-message">sdsd</div>
+<div class="subtitle-message">dsdss</div>
+</div>-->
+
+<!--<div class="wrapper-message">
+<div class="title-message">{{_ 'lists.show.loading'}}</div>
+</div>-->
     </div>
   </div>
 </template>
 
 <script>
 import item from './Item';
+import { addLocked, getTodo } from '../api/api';
 export default {
   data() {
     return {
       languages: ['asdas', 'asdas', 'aasdas'],
-      lists: [{ name: '12312', count: 1232 }, { name: '12312', count: 1232 },
-      { name: '12312', count: 1232 },
-      { name: '12312', count: 1232 }],
-      text: '111'
+      lists: [],
+      todo: '111',
+      text: ''
     };
   },
   components: {
     item
+  },
+  watch: {
+    '$route.params.id'() {
+      this.init();
+    }
+  },
+  created() {
+    this.init();
+  },
+  methods: {
+    init() {
+      const ID = this.$route.params.id;
+      getTodo({ id: ID }).then(res => {
+            console.log(res.data);
+        let {
+          id,
+          title,
+          count,
+          isDelete,
+          locked,
+          record
+        } = res.data.tode;
+        this.lists = record;
+        this.todo = {
+          id: id,
+          title: title,
+          count: count,
+          locked: locked,
+          isDelete: isDelete
+        };
+      });
+    },
+    onAdd() {
+      addLocked({
+        id: this.todo.id, text: this.text
+      }).then(data => {
+        this.init();
+        this.text = '';
+      });
+    }
   }
 };
 </script>
