@@ -1,46 +1,35 @@
 <template>
   <div class="page lists-show" v-show="!todo.isDelete">
-    <nav class="js-title-nav">
+    <nav>
       <div class="form list-edit-form" v-show="isUpdate">
         <input type="text" v-model="todo.title" @keyup.enter="updateTitle" :disabled="todo.locked">
         <div class="nav-group right">
-          <a class="js-cancel nav-item" @click="isUpdate = false">
-            <span class="icon-close js-cancel" title="dsd">
+          <a class="nav-item" @click="isUpdate = false">
+            <span class="icon-close">
             </span>
           </a>
         </div>
       </div>
-      <div class="nav-group" @click="$store.dispatch('updateMenu')">
+      <div class="nav-group" @click="$store.dispatch('updateMenu')" v-show="!isUpdate">
         <a class="nav-item">
           <span class="icon-list-unordered" title="请输入">
           </span>
         </a>
       </div>
   
-      <h1 class="js-edit-list title-page" v-show="!isUpdate" @click="isUpdate = true">
-        <span class="title-wrapper">{{todo.title || '...'}}</span>
+      <h1 class="title-page" v-show="!isUpdate" @click="isUpdate = true">
+        <span class="title-wrapper">{{todo.title}}</span>
         <span class="count-list">{{todo.count || 0}}</span>
       </h1>
   
       <div class="nav-group right" v-show="!isUpdate">
-        <!--<div class="nav-item options-mobile">
-                <select class="list-edit">
-                <option disabled selected>
-                asdasdasds
-                </option>
-                <option value="public">dsds</option>
-                <option value="private">sadsad</option>
-                <option value="delete">asdasd</option>
-                </select>
-                <span class="icon-cog"></span>
-                </div>-->
         <div class="options-web">
-          <a class="js-toggle-list-privacy nav-item" @click="onlock">
+          <a class=" nav-item" @click="onlock">
             <span class="icon-lock" v-if="todo.locked"></span>
             <span class="icon-unlock" v-else>
             </span>
           </a>
-          <a class="js-delete-list nav-item">
+          <a class=" nav-item">
             <span class="icon-trash" @click="onDelete">
             </span>
           </a>
@@ -49,19 +38,13 @@
   
       <div class=" form todo-new input-symbol">
         <input type="text" v-model="text" placeholder='请输入' @keyup.enter="onAdd" :disabled="todo.locked" />
-        <span class="icon-add js-todo-add"></span>
+        <span class="icon-add"></span>
       </div>
     </nav>
     <div class="content-scrollable list-items">
-      <item :list="list" v-for="(list, index) in lists" :index="index" :id="todo.id" :init="init" :locked="todo.locked"></item>
-      <!--<div class="wrapper-message">
-                <div class="title-message">sdsd</div>
-                <div class="subtitle-message">dsdss</div>
-                </div>-->
-  
-      <!--<div class="wrapper-message">
-                <div class="title-message">{{_ 'lists.show.loading'}}</div>
-                </div>-->
+      <div v-for="(list, index) in lists">
+        <item :list="list" :index="index" :id="todo.id" :init="init" :locked="todo.locked"></item>
+      </div>
     </div>
   </div>
 </template>
@@ -72,9 +55,8 @@ import { addRecord, getTodo, editTodo } from '../api/api';
 export default {
   data() {
     return {
-      languages: ['asdas', 'asdas', 'aasdas'],
       lists: [],
-      todo: '111',
+      todo: '',
       text: '',
       isUpdate: false
     };
@@ -146,7 +128,6 @@ export default {
 </script>
 
 <style lang = "less">
-@import '../common/style/utils.less';
 @import '../common/style/nav.less';
 @import '../common/style/form.less';
 .page.lists-show {

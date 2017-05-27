@@ -1,20 +1,7 @@
 <template>
   <div id="container" :class="{'menu-open': menuOpen}">
     <section id="menu">
-      <div class="list-todos">
-        <transition-group tag="div" name="list">
-          <a @click="goList(list.id)" :key="list.id" class="list-todo activeListClass list" :class="{'active': list.id === todoId}" v-for="list in todoList">
-            <span class="icon-lock" v-if="list.locked"></span>
-            <span class="count-list" v-if="list.count > 0">{{list.count}}</span>
-            {{list.title}}
-          </a>
-        </transition-group>
-        <a class=" link-list-new" @click="addTodoList">
-          <span class="icon-plus">
-          </span>
-          新增
-        </a>
-      </div>
+      <todo :todoList="todoList" :id="todoId" @go-list="goList"></todo>
     </section>
     <div class="content-overlay" @click="$store.dispatch('updateMenu')"></div>
     <div id="content-container">
@@ -24,23 +11,14 @@
 </template>
 
 <script>
-import list from './lists';
-import { addTodo } from '../api/api';
+import todo from './todos';
 export default {
   data() {
     return {
-      languages: ['asdas', 'asdas', 'aasdas'],
-      lists: [],
-      text: '111',
       todoId: ''
     };
   },
   created() {
-    // getTodoList().then(res => {
-    //   console.log(res.data.todos);
-    //   this.lists = res.data.todos;
-    //   this.goList(this.lists[0].id);
-    // });
     this.$store.dispatch('getTodo').then(() => {
       this.$nextTick(() => {
         this.goList(this.todoList[0].id);
@@ -56,32 +34,19 @@ export default {
     }
   },
   components: {
-    list
+    todo
   },
   methods: {
     goList(id) {
       this.todoId = id;
       this.$router.push({ name: 'list', params: { id: this.todoId } });
-    },
-    addTodoList() {
-      addTodo({}).then(data => {
-        this.$store.dispatch('getTodo').then(() => {
-          this.$nextTick(() => {
-            setTimeout(() => {
-              this.goList(this.todoList[this.todoList.length - 1].id);
-            }, 500);
-          });
-        });
-      });
     }
   }
 };
 </script>
 
 <style lang="less">
-// @import '../common/style/utils.less';
 @import '../common/style/menu.less';
-@import '../common/style/notification.less';
 @menu-width: 270px;
 @column: 5.55555%;
 

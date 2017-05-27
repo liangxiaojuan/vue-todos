@@ -6,7 +6,7 @@
         <span class="checkbox-custom"></span>
       </label>
       <input type="text" v-model="item.text" placeholder='写点什么。。。' :disabled=" item.checked || locked" @change="onChange">
-      <a class="js-delete-item delete-item" v-if="item.checked && !locked" @click="item.isDelete = true;onChange()">
+      <a class="delete-item" v-if="item.checked && !locked" @click="item.isDelete = true;onChange()">
         <span class="icon-trash"></span>
       </a>
     </div>
