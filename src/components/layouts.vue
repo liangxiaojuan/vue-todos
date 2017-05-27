@@ -2,15 +2,17 @@
   <div id="container" :class="{'menu-open': menuOpen}">
     <section id="menu">
       <div class="list-todos">
-        <a class=" link-list-new">
+        <transition-group tag="div" name="list">
+          <a @click="goList(list.id)" :key="list.id" class="list-todo activeListClass list" :class="{'active': list.id === todoId}" v-for="list in todoList">
+            <span class="icon-lock" v-if="list.locked"></span>
+            <span class="count-list" v-if="list.count > 0">{{list.count}}</span>
+            {{list.title}}
+          </a>
+        </transition-group>
+        <a class=" link-list-new" @click="addTodoList">
           <span class="icon-plus">
           </span>
           新增
-        </a>
-        <a @click="goList(list.id)" class="list-todo activeListClass list" :class="{'active': list.id === todoId}" v-for="list in todoList">
-          <span class="icon-lock" v-if="list.locked"></span>
-          <span class="count-list" v-if="list.count > 0">{{list.count}}</span>
-          {{list.title}}
         </a>
       </div>
     </section>
@@ -23,7 +25,7 @@
 
 <script>
 import list from './lists';
-// import { getTodoList } from '../api/api';
+import { addTodo } from '../api/api';
 export default {
   data() {
     return {
@@ -60,6 +62,17 @@ export default {
     goList(id) {
       this.todoId = id;
       this.$router.push({ name: 'list', params: { id: this.todoId } });
+    },
+    addTodoList() {
+      addTodo({}).then(data => {
+        this.$store.dispatch('getTodo').then(() => {
+          this.$nextTick(() => {
+            setTimeout(() => {
+              this.goList(this.todoList[this.todoList.length - 1].id);
+            }, 500);
+          });
+        });
+      });
     }
   }
 };
@@ -150,5 +163,18 @@ body {
   @media screen and (min-width: 40em) {
     display: none;
   }
+}
+
+.list-move,
+.list-leave-active,
+.list-enter-active,
+{
+  transition: 500ms cubic-bezier(.87, -.41, .19, 1.44);
+}
+
+.list-enter,
+.list-leave-active {
+  transform: translate(100%, 0);
+  opacity: 0;
 }
 </style>

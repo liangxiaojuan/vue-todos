@@ -1,5 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import Mock from 'mockjs';
 import {
   Todos
 } from './data/todoList';
@@ -72,9 +73,9 @@ export default {
     });
 
     // 新增一条todo
-    mock.onPost('/todo/addTode').reply(config => {
+    mock.onPost('/todo/addTodo').reply(config => {
       Todos.push({
-        // id: Mock.Random.guid(),
+        id: Mock.Random.guid(),
         title: 'newList',
         isDelete: false,
         locked: false,
@@ -94,20 +95,11 @@ export default {
       } = JSON.parse(config.data);
       Todos.some((t, index) => {
         if (t.id === id) {
-          console.log(Todos[index].record);
           t.record.push({
             text: text,
             isDelete: false,
             checked: false
           });
-          // t.count = t.count + 1;
-          // console.log(t);
-          // let =
-          // t.record = t.record.push({
-          //   text: text,
-          //   isDelete: false,
-          //   checked: false
-          // });
           return true;
         }
       });

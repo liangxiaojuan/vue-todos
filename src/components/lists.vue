@@ -24,16 +24,16 @@
   
       <div class="nav-group right" v-show="!isUpdate">
         <!--<div class="nav-item options-mobile">
-            <select class="list-edit">
-            <option disabled selected>
-            asdasdasds
-            </option>
-            <option value="public">dsds</option>
-            <option value="private">sadsad</option>
-            <option value="delete">asdasd</option>
-            </select>
-            <span class="icon-cog"></span>
-            </div>-->
+                <select class="list-edit">
+                <option disabled selected>
+                asdasdasds
+                </option>
+                <option value="public">dsds</option>
+                <option value="private">sadsad</option>
+                <option value="delete">asdasd</option>
+                </select>
+                <span class="icon-cog"></span>
+                </div>-->
         <div class="options-web">
           <a class="js-toggle-list-privacy nav-item" @click="onlock">
             <span class="icon-lock" v-if="todo.locked"></span>
@@ -55,13 +55,13 @@
     <div class="content-scrollable list-items">
       <item :list="list" v-for="(list, index) in lists" :index="index" :id="todo.id" :init="init" :locked="todo.locked"></item>
       <!--<div class="wrapper-message">
-            <div class="title-message">sdsd</div>
-            <div class="subtitle-message">dsdss</div>
-            </div>-->
+                <div class="title-message">sdsd</div>
+                <div class="subtitle-message">dsdss</div>
+                </div>-->
   
       <!--<div class="wrapper-message">
-            <div class="title-message">{{_ 'lists.show.loading'}}</div>
-            </div>-->
+                <div class="title-message">{{_ 'lists.show.loading'}}</div>
+                </div>-->
     </div>
   </div>
 </template>
@@ -117,6 +117,7 @@ export default {
         todo: this.todo
       }).then(data => {
         this.init();
+        this.$store.dispatch('getTodo');
       });
     },
     onAdd() {
@@ -124,6 +125,7 @@ export default {
         id: this.todo.id, text: this.text
       }).then(data => {
         this.init();
+        this.$store.dispatch('getTodo');
         this.text = '';
       });
     },
