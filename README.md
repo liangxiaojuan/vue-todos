@@ -31,8 +31,10 @@ npm run build
 
 ### 图片预览
 * pc端
-
+![pc端](file:///var/folders/ts/lmpvss1x259174m94wpklskm0000gn/T/WizNote/f1947fd7-7db3-4268-b4b5-1dc7fd4acbca/index_files/88796635-2206-42d6-8a30-43a6e2c9837d.png)
 * 移动端
+![1](file:///var/folders/ts/lmpvss1x259174m94wpklskm0000gn/T/WizNote/f1947fd7-7db3-4268-b4b5-1dc7fd4acbca/index_files/88be6d32-3fd4-47e5-bb22-05891d9e84dc.png)
+![2](file:///var/folders/ts/lmpvss1x259174m94wpklskm0000gn/T/WizNote/f1947fd7-7db3-4268-b4b5-1dc7fd4acbca/index_files/02732cd0-ae71-43bd-ab9b-6da86d046f99.png)
                                       
 ### 课程目录(请保持关注,一天更新一小节)
 
