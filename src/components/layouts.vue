@@ -1,57 +1,21 @@
 <template>
-  <div id="container" class="menuOpen">
+  <div id="container" :class="{'menu-open': menuOpen}">
     <section id="menu">
-      <!--<div class="language-toggle">-->
-      <!--<span class="active" v-for="language in languages">{{language}}</span>-->
-      <!--<a href="#" class="js-toggle-language" v-for="language in languages">{{language}}</a>-->
-      <!--</div>-->
-      <!--<div class="btns-group-vertical">
-                              <a href="#" class="js-user-menu btn-secondary">
-                                <span class="icon-arrow-up"></span>
-                                <span class="icon-arrow-down"></span>
-                                敖德萨所大所
-                              </a>
-                              <a class="js-logout btn-secondary">
-                              </a>
-                            </div>-->
-      <!--<div class="btns-group">
-                              <a href="" class="btn-secondary">
-                                登录
-                              </a>
-                              <a href="" class="btn-secondary">
-                                注册
-                              </a>
-                            </div>-->
       <div class="list-todos">
         <a class=" link-list-new">
           <span class="icon-plus">
           </span>
           新增
         </a>
-        <a @click="goList(list.id)" class="list-todo activeListClass list" v-for="list in lists">
+        <a @click="goList(list.id)" class="list-todo activeListClass list" :class="{'active': list.id === todoId}" v-for="list in todoList">
           <span class="icon-lock" v-if="list.locked"></span>
           <span class="count-list" v-if="list.count > 0">{{list.count}}</span>
           {{list.title}}
         </a>
-  
       </div>
     </section>
-    <!--<div class="notifications">
-                                <div class="notification">
-                                  <span class="icon-sync"></span>
-                                  <div class="meta">
-                                    <div class="title-notification">
-                                      dadasdasd
-                                    </div>
-                                    <div class="description">
-                                      asdasdasdasd
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>-->
-    <div class="content-overlay"></div>
+    <div class="content-overlay" @click="$store.dispatch('updateMenu')"></div>
     <div id="content-container">
-      <!--<list></list>-->
       <router-view></router-view>
     </div>
   </div>
@@ -59,27 +23,43 @@
 
 <script>
 import list from './lists';
-import { getTodoList } from '../api/api';
+// import { getTodoList } from '../api/api';
 export default {
   data() {
     return {
       languages: ['asdas', 'asdas', 'aasdas'],
       lists: [],
-      text: '111'
+      text: '111',
+      todoId: ''
     };
   },
   created() {
-    getTodoList().then(res => {
-      console.log(res.data.todos);
-      this.lists = res.data.todos;
+    // getTodoList().then(res => {
+    //   console.log(res.data.todos);
+    //   this.lists = res.data.todos;
+    //   this.goList(this.lists[0].id);
+    // });
+    this.$store.dispatch('getTodo').then(() => {
+      this.$nextTick(() => {
+        this.goList(this.todoList[0].id);
+      });
     });
+  },
+  computed: {
+    todoList() {
+      return this.$store.getters.getTodoList;
+    },
+    menuOpen() {
+      return this.$store.state.menuOpen;
+    }
   },
   components: {
     list
   },
   methods: {
     goList(id) {
-      this.$router.push({ name: 'list', params: { id: id } });
+      this.todoId = id;
+      this.$router.push({ name: 'list', params: { id: this.todoId } });
     }
   }
 };

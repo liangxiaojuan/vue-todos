@@ -1,81 +1,82 @@
 <template>
-  <div class="page lists-show">
+  <div class="page lists-show" v-show="!todo.isDelete">
     <nav class="js-title-nav">
-      <!--<form class="js-edit-form list-edit-form">
-                                                        <input type="text" name="name" value="">
-                                                        <div class="nav-group right">
-                                                        <a href="#" class="js-cancel nav-item">
-                                                          <span class="icon-close js-cancel" title="dsd">
-                                                          </span>
-                                                        </a>
-                                                        </div>
-                                                        </form>-->
-      <div class="nav-group">
-        <a href="#" class="js-menu nav-item">
+      <div class="form list-edit-form" v-show="isUpdate">
+        <input type="text" v-model="todo.title" @keyup.enter="updateTitle" :disabled="todo.locked">
+        <div class="nav-group right">
+          <a class="js-cancel nav-item" @click="isUpdate = false">
+            <span class="icon-close js-cancel" title="dsd">
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="nav-group" @click="$store.dispatch('updateMenu')">
+        <a class="nav-item">
           <span class="icon-list-unordered" title="请输入">
           </span>
         </a>
       </div>
   
-      <h1 class="js-edit-list title-page">
-        <span class="title-wrapper">{{todo.title}}</span>
-        <span class="count-list">{{todo.count}}</span>
+      <h1 class="js-edit-list title-page" v-show="!isUpdate" @click="isUpdate = true">
+        <span class="title-wrapper">{{todo.title || '...'}}</span>
+        <span class="count-list">{{todo.count || 0}}</span>
       </h1>
   
-      <div class="nav-group right">
+      <div class="nav-group right" v-show="!isUpdate">
         <!--<div class="nav-item options-mobile">
-                            <select class="list-edit">
-                              <option disabled selected>
-                                asdasdasds
-                              </option>
-                              <option value="public">dsds</option>
-                              <option value="private">sadsad</option>
-                              <option value="delete">asdasd</option>
-                            </select>
-                            <span class="icon-cog"></span>
-                          </div>-->
+            <select class="list-edit">
+            <option disabled selected>
+            asdasdasds
+            </option>
+            <option value="public">dsds</option>
+            <option value="private">sadsad</option>
+            <option value="delete">asdasd</option>
+            </select>
+            <span class="icon-cog"></span>
+            </div>-->
         <div class="options-web">
-          <a class="js-toggle-list-privacy nav-item">
+          <a class="js-toggle-list-privacy nav-item" @click="onlock">
             <span class="icon-lock" v-if="todo.locked"></span>
             <span class="icon-unlock" v-else>
             </span>
           </a>
           <a class="js-delete-list nav-item">
-            <span class="icon-trash">
+            <span class="icon-trash" @click="onDelete">
             </span>
           </a>
         </div>
       </div>
   
-      <form class="todo-new input-symbol">
-        <input type="text" v-model="text" placeholder='请输入' @keyup.enter="onAdd" />
+      <div class=" form todo-new input-symbol">
+        <input type="text" v-model="text" placeholder='请输入' @keyup.enter="onAdd" :disabled="todo.locked" />
         <span class="icon-add js-todo-add"></span>
-      </form>
+      </div>
     </nav>
     <div class="content-scrollable list-items">
-      <item :list="list" v-for="list in lists"></item>
-<!--<div class="wrapper-message">
-<div class="title-message">sdsd</div>
-<div class="subtitle-message">dsdss</div>
-</div>-->
-
-<!--<div class="wrapper-message">
-<div class="title-message">{{_ 'lists.show.loading'}}</div>
-</div>-->
+      <item :list="list" v-for="(list, index) in lists" :index="index" :id="todo.id" :init="init" :locked="todo.locked"></item>
+      <!--<div class="wrapper-message">
+            <div class="title-message">sdsd</div>
+            <div class="subtitle-message">dsdss</div>
+            </div>-->
+  
+      <!--<div class="wrapper-message">
+            <div class="title-message">{{_ 'lists.show.loading'}}</div>
+            </div>-->
     </div>
   </div>
 </template>
 
 <script>
 import item from './Item';
-import { addLocked, getTodo } from '../api/api';
+import { addRecord, getTodo, editTodo } from '../api/api';
 export default {
   data() {
     return {
       languages: ['asdas', 'asdas', 'aasdas'],
       lists: [],
       todo: '111',
-      text: ''
+      text: '',
+      isUpdate: false
     };
   },
   components: {
@@ -93,7 +94,6 @@ export default {
     init() {
       const ID = this.$route.params.id;
       getTodo({ id: ID }).then(res => {
-            console.log(res.data);
         let {
           id,
           title,
@@ -112,13 +112,32 @@ export default {
         };
       });
     },
+    updateTodo() {
+      editTodo({
+        todo: this.todo
+      }).then(data => {
+        this.init();
+      });
+    },
     onAdd() {
-      addLocked({
+      addRecord({
         id: this.todo.id, text: this.text
       }).then(data => {
         this.init();
         this.text = '';
       });
+    },
+    updateTitle() {
+      this.updateTodo();
+      this.isUpdate = false;
+    },
+    onDelete() {
+      this.todo.isDelete = true;
+      this.updateTodo();
+    },
+    onlock() {
+      this.todo.locked = !this.todo.locked;
+      this.updateTodo();
     }
   }
 };
@@ -170,7 +189,7 @@ export default {
         vertical-align: middle;
       }
     }
-    form.todo-new {
+    .form.todo-new {
       .position(absolute, 3em, 0, auto, 0);
 
       input[type="text"] {
@@ -180,7 +199,7 @@ export default {
         padding-top: .25em;
       }
     }
-    form.list-edit-form {
+    .form.list-edit-form {
       position: relative;
 
       input[type="text"] {

@@ -5,6 +5,7 @@ import App from './App';
 import router from './router';
 import './common/style/icon.less';
 import Mock from './mock';
+import store from './vuex/store';
 Mock.bootstrap();
 Vue.config.productionTip = false;
 
@@ -12,6 +13,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: {
     App

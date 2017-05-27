@@ -1,13 +1,8 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import {
-  LoginUsers
-} from './data/user';
-// let _Users = Users;
-import {
   Todos
 } from './data/todoList';
-console.log(Todos);
 export default {
   /**
    * mock bootstrap
@@ -24,48 +19,16 @@ export default {
     mock.onGet('/error').reply(500, {
       msg: 'failure'
     });
-
-    // 登录
-    mock.onPost('/login').reply(config => {
-      let {
-        username,
-        password
-      } = JSON.parse(config.data);
-      return new Promise((resolve, reject) => {
-        let user = null;
-        setTimeout(() => {
-          console.log(LoginUsers);
-          let hasUser = LoginUsers.some(u => {
-            if (u.username === username && u.password === password) {
-              user = JSON.parse(JSON.stringify(u));
-              user.password = undefined;
-              return true;
-            }
-          });
-
-          if (hasUser) {
-            resolve([200, {
-              code: 200,
-              msg: '请求成功',
-              user
-            }]);
-          } else {
-            resolve([200, {
-              code: 500,
-              msg: '账号或密码错误'
-            }]);
-          }
-        }, 1000);
-      });
-    });
-
     // 获取todo列表
     mock.onGet('/todo/list').reply(config => {
       let mockTodo = Todos.map(tode => {
         return {
           id: tode.id,
           title: tode.title,
-          count: tode.count,
+          count: tode.record.filter((data) => {
+            if (data.checked === false) return true;
+            return false;
+          }).length,
           locked: tode.locked,
           isDelete: tode.isDelete
         };
@@ -78,7 +41,7 @@ export default {
           resolve([200, {
             todos: mockTodo
           }]);
-        }, 1000);
+        }, 200);
       });
     });
     // 获取todo单个列表
@@ -91,26 +54,44 @@ export default {
       //     return true;
       //   }
       // });
-      let tode = Todos.filter(tode => {
-        if (id && tode.id === parseInt(id)) return true;
+      let todo = Todos.filter(tode => {
+        if (id && tode.id === id) return true;
         return false;
-      });
+      })[0];
+      todo.count = todo.record.filter((data) => {
+        if (data.checked === false) return true;
+        return false;
+      }).length;
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
-            tode: tode[0]
+            tode: todo
           }]);
         }, 200);
       });
     });
 
+    // 新增一条todo
+    mock.onPost('/todo/addTode').reply(config => {
+      Todos.push({
+        // id: Mock.Random.guid(),
+        title: 'newList',
+        isDelete: false,
+        locked: false,
+        record: []
+      });
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200]);
+        }, 200);
+      });
+    });
     // 新增一条代办事项
-    mock.onPost('/todo/addLocked').reply(config => {
+    mock.onPost('/todo/addRecord').reply(config => {
       let {
         id,
         text
       } = JSON.parse(config.data);
-      console.log(text);
       Todos.some((t, index) => {
         if (t.id === id) {
           console.log(Todos[index].record);
@@ -119,7 +100,7 @@ export default {
             isDelete: false,
             checked: false
           });
-           t.count = t.count + 1;
+          // t.count = t.count + 1;
           // console.log(t);
           // let =
           // t.record = t.record.push({
@@ -130,7 +111,45 @@ export default {
           return true;
         }
       });
-      console.log(Todos);
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200]);
+        }, 200);
+      });
+    });
+
+    // 修改标题
+    mock.onPost('/todo/editTodo').reply(config => {
+      let {
+        todo
+      } = JSON.parse(config.data);
+      Todos.some((t, index) => {
+        if (t.id === todo.id) {
+          t.title = todo.title;
+          t.locked = todo.locked;
+          t.isDelete = todo.isDelete;
+          return true;
+        }
+      });
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200]);
+        }, 200);
+      });
+    });
+    // 修改标题
+    mock.onPost('/todo/editRecord').reply(config => {
+      let {
+        id,
+        record,
+        index
+      } = JSON.parse(config.data);
+      Todos.some((t) => {
+        if (t.id === id) {
+          t.record[index] = record;
+          return true;
+        }
+      });
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200]);
