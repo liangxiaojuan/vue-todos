@@ -1,11 +1,12 @@
 # vue-todos
 [预览地址](http://yangyi1024.com/todo)(响应式设计，可以在手机端使用)
-> **vue-todos**是 [todomvc](https://github.com/tastejs/todomvc)  vue模块的升级版本,界面简约，功能丰富，知道点全面，能帮您快速上手vuejs.
+> **vue-todos**是 [todomvc](https://github.com/tastejs/todomvc)  vue模块的升级版本,界面简约，功能丰富，知道点全面，能帮您快速上手vuejs.喜欢的请点心，关注，star ,fork,这些是我坚持下去的动力!!
 
 ### 前言
-   **vuejs**是一个好的开源项目，大大释放了我们的生产力。使用vue2年，不仅让我升职加薪，更让我的前端技术有了大的进步。 在各大vue群，各大论坛混了很久了，解答了不少的vuejs小白问题。发现很多问题[vueApi文档](https://cn.vuejs.org/)都是api不够理解的原因，糟糕的是很多人不喜欢查阅文档，而且由于练手机会少，所以在遇到问题的时候很无措。
 
+   **vuejs**是一个好的开源项目，大大释放了我们的生产力。使用vue2年，不仅让我升职加薪，更让我的前端技术有了大的进步。 在各大vue群，各大论坛混了很久了，解答了不少的vuejs小白问题。发现很多问题[vueApi文档](https://cn.vuejs.org/)都是api不够理解的原因，糟糕的是很多人不喜欢查阅文档，而且由于练手机会少，所以在遇到问题的时候很无措。
 ### 希望
+
 本课程会带大家从零开始实战vue,希望通过此课程能够使初学者门能够快速的上手vuejs,快速的学习使用vue常用的api.让vue.js的初学者们循序渐进的，有效的学习vuejs.
 
 ### 运行
