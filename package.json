@@ -13,6 +13,8 @@
   "dependencies": {
     "axios": "^0.16.1",
     "axios-mock-adapter": "^1.8.1",
+    "less": "^2.7.2",
+    "mockjs": "^1.0.1-beta3",
     "vue": "^2.2.6",
     "vue-router": "^2.3.1",
     "vuex": "^2.3.1"
