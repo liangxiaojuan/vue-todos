@@ -1,5 +1,4 @@
 @import './utils.less';
-
 @menu-width: 270px;
 @column: 5.55555%;
 
@@ -11,7 +10,7 @@ body {
   background-attachment: fixed;
 }
 
-#container {
+.container {
   .position(absolute, 0, 0, 0, 0);
 
   @media screen and (min-width: 60em) {
@@ -22,17 +21,19 @@ body {
   @media screen and (min-width: 80em) {
     left: 2*@column;
     right: 2*@column;
-  }
-
-  // Hide anything offscreen
+  } // Hide anything offscreen
   overflow: hidden;
 }
 
-#menu {
+.menu {
   .position(absolute, 0, 0, 0, 0, @menu-width);
+  background-color: #315481;
+  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-#content-container {
+.content-container {
   .position(absolute, 0, 0, 0, 0);
   transition: all 200ms ease-out;
   transform: translate3d(0, 0, 0);
@@ -52,9 +53,7 @@ body {
     transform: translate3d(0, 0, 0);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-  }
-
-  // Toggle menu on mobile
+  } // Toggle menu on mobile
   .menu-open & {
     transform: translate3d(@menu-width, 0, 0);
     opacity: .85;
@@ -77,8 +76,21 @@ body {
   .menu-open & {
     transform: translate3d(@menu-width, 0, 0);
     z-index: 1;
+  } // Hide overlay on desktop
+  @media screen and (min-width: 40em) {
+    display: none;
   }
+}
 
-  // Hide overlay on desktop
-  @media screen and (min-width: 40em) { display: none; }
+.list-move,
+.list-leave-active,
+.list-enter-active,
+{
+  transition: 500ms cubic-bezier(.87, -.41, .19, 1.44);
+}
+
+.list-enter,
+.list-leave-active {
+  transform: translate(100%, 0);
+  opacity: 0;
 }

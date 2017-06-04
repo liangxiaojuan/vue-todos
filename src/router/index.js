@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import layouts from '@/components/layouts';
-import list from '@/components/lists';
+import todo from '@/components/todo';
 
 Vue.use(Router);
 
@@ -11,9 +11,9 @@ export default new Router({
       name: 'Hello',
       component: layouts,
       children: [{
-        path: '/list/:id',
-        name: 'list',
-        component: list
+        path: '/todo/:id',
+        name: 'todo',
+        component: todo
       }]
     }
   ]

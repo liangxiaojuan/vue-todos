@@ -1,17 +1,17 @@
 <template>
-  <div id="container" :class="{'menu-open': menuOpen}">
-    <section id="menu">
-      <todo :todoList="todoList" :id="todoId" @go-list="goList"></todo>
+  <section class="container" :class="{'menu-open': menuOpen}">
+    <section class="menu">
+      <menus :todoList="todoList" :id="todoId" @go-list="goList"></menus>
     </section>
     <div class="content-overlay" @click="$store.dispatch('updateMenu')"></div>
-    <div id="content-container">
+    <div class="content-container">
       <router-view></router-view>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
-import todo from './todos';
+import menus from './menus.vue';
 export default {
   data() {
     return {
@@ -34,112 +34,17 @@ export default {
     }
   },
   components: {
-    todo
+    menus
   },
   methods: {
     goList(id) {
       this.todoId = id;
-      this.$router.push({ name: 'list', params: { id: this.todoId } });
+      this.$router.push({ name: 'todo', params: { id: this.todoId } });
     }
   }
 };
 </script>
 
 <style lang="less">
-@import '../common/style/menu.less';
-@menu-width: 270px;
-@column: 5.55555%;
-
-body {
-  .position(absolute, 0, 0, 0, 0);
-  background-color: #315481;
-  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-#container {
-  .position(absolute, 0, 0, 0, 0);
-
-  @media screen and (min-width: 60em) {
-    left: @column;
-    right: @column;
-  }
-
-  @media screen and (min-width: 80em) {
-    left: 2*@column;
-    right: 2*@column;
-  } // Hide anything offscreen
-  overflow: hidden;
-}
-
-#menu {
-  .position(absolute, 0, 0, 0, 0, @menu-width);
-  background-color: #315481;
-  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-#content-container {
-  .position(absolute, 0, 0, 0, 0);
-  transition: all 200ms ease-out;
-  transform: translate3d(0, 0, 0);
-  background: @color-tertiary;
-  opacity: 1;
-
-  .page {
-    .position(absolute, 0, 0, 0, 0);
-  }
-
-  @media screen and (min-width: 40em) {
-    left: @menu-width;
-  }
-
-  .content-scrollable {
-    .position(absolute, 0, 0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  } // Toggle menu on mobile
-  .menu-open & {
-    transform: translate3d(@menu-width, 0, 0);
-    opacity: .85;
-    left: 0;
-
-    @media screen and (min-width: 40em) {
-      // Show menu on desktop, negate .menu-open
-      transform: translate3d(0, 0, 0); //reset transform and use position properties instead
-      opacity: 1;
-      left: @menu-width;
-    }
-  }
-}
-
-// Transparent screen to prevent interactions on content when menu is open
-.content-overlay {
-  .position(absolute, 0, 0, 0, 0);
-  cursor: pointer;
-
-  .menu-open & {
-    transform: translate3d(@menu-width, 0, 0);
-    z-index: 1;
-  } // Hide overlay on desktop
-  @media screen and (min-width: 40em) {
-    display: none;
-  }
-}
-
-.list-move,
-.list-leave-active,
-.list-enter-active,
-{
-  transition: 500ms cubic-bezier(.87, -.41, .19, 1.44);
-}
-
-.list-enter,
-.list-leave-active {
-  transform: translate(100%, 0);
-  opacity: 0;
-}
+@import '../common/style/layouts.less';
 </style>
