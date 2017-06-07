@@ -8,7 +8,7 @@ export default {
   /**
    * mock bootstrap
    */
-  bootstrap() {
+  start() {
     let mock = new MockAdapter(axios);
 
     // mock success request

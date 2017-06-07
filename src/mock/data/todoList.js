@@ -1,7 +1,7 @@
  import Mock from 'mockjs';
  let Todos = [];
- let COUNT = [1, 2, 3, 4, 5];
- for (let i = 1; i <= 5; i++) {
+ let COUNT = COUNT = [1, 2, 3, 4, 5]; // 定义我们需要数量
+ for (let i = 1; i <= COUNT.length; i++) {
    Todos.push(Mock.mock({
      id: Mock.Random.guid(),
      title: Mock.Random.first(),

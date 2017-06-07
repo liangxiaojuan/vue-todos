@@ -6,7 +6,7 @@ import router from './router'; //  引入路由配置文件
 import './common/style/icon.less';
 import Mock from './mock';
 import store from './vuex/store';
-Mock.bootstrap();
+Mock.start();
 Vue.config.productionTip = false;  //  关闭生产模式下给出的提示
 
 /* eslint-disable no-new */
