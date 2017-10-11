@@ -1,9 +1,11 @@
 <template>
   <section class="container" :class="{'menu-open': menuOpen}">
+    <!-- 根据menuOpen的值来判断是否使用menu-open样式 -->
     <section class="menu">
-      <menus :todoList="todoList" :id="todoId" @go-list="goList"></menus>
+      <menus></menus>
     </section>
     <div class="content-overlay" @click="$store.dispatch('updateMenu')"></div>
+    <!-- 这个是当页面收缩覆盖在内容上面的模糊层，点击后复原,他可以直接调用vuex actions.js里面的updateMenu方法 -->
     <div class="content-container">
       <router-view></router-view>
     </div>
@@ -11,35 +13,16 @@
 </template>
 
 <script>
-import menus from './menus.vue';
+import menus from './menus';
+import todo from './todo';
 export default {
-  data() {
-    return {
-      todoId: ''
-    };
-  },
-  created() {
-    this.$store.dispatch('getTodo').then(() => {
-      this.$nextTick(() => {
-        this.goList(this.todoList[0].id);
-      });
-    });
+  components: {
+    menus,
+    todo
   },
   computed: {
-    todoList() {
-      return this.$store.getters.getTodoList;
-    },
     menuOpen() {
       return this.$store.state.menuOpen;
-    }
-  },
-  components: {
-    menus
-  },
-  methods: {
-    goList(id) {
-      this.todoId = id;
-      this.$router.push({ name: 'todo', params: { id: this.todoId } });
     }
   }
 };

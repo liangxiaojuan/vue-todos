@@ -1,4 +1,4 @@
 
 export const getTodoList = state => {
-    return state.todoList;
+    return state.todoList; // 派生状态todoList
 };

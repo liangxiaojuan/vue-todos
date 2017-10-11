@@ -50,28 +50,28 @@ npm run build
        * [组件分析](http://yangyi1024.com/2017/06/01/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84vue(2):%20%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90/)
     * 响应式布局
     * 组件编写
-        * 菜单组件
-        * 头部组件 
-        * 列表组件    
+        * [菜单组件](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+        * [头部组件](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+        * [列表组件](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
     * 菜单
-       * api.js(axios.js)编写
-       * 绑定菜单数据
-       * 新增菜单
+       * [api.js(axios.js)编写](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+       * [绑定菜单数据](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+       * [新增菜单](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
    * 头部
-       * 绑定单条数据
-       * 新增列表
-       * 修改标题
-       * 删除内容
+       * [绑定单条数据](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+       * [新增列表](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+       * [修改标题](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+       * [删除内容](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
     *  列表  
-        * 完成代办项
-        * 修改代办项
-        * 删除代办项
+        * [完成代办项](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+        * [修改代办项](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+        * [删除代办项](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
     *  锁定
-        * 锁定代办项
+        * [锁定代办项](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
     *  vuex
-        *  菜单数据更新
-         *  移动端菜单收缩
+        *  [菜单数据更新](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+         *  [移动端菜单收缩](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
     *  过渡动画
-        * 菜单动画
-        * 列表动画
-* vue.js知识点讲解
+        * [菜单动画](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+        * [列表动画](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
+* [vue.js知识点讲解](http://yangyi1024.com/tags/%E5%AD%A6%E4%B9%A0%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84Vue/)
