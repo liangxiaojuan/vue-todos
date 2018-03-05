@@ -7,14 +7,13 @@ Vue.use(Router);
 
 export default new Router({
   routes: [{
-      path: '/',
-      name: 'Hello',
-      component: layouts,
-      children: [{
-        path: '/todo/:id',
-        name: 'todo',
-        component: todo
-      }]
-    }
-  ]
+    path: '/',
+    name: 'Hello',
+    component: layouts,
+    children: [{
+      path: '/todo/:id',
+      name: 'todo',
+      component: todo
+    }]
+  }]
 });
