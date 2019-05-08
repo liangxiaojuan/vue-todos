@@ -68,7 +68,7 @@ export default {
             resolve([200, {
               todo: {}
             }]);
-          });
+          }, 200);
         });
       }
 
