@@ -60,6 +60,18 @@ export default {
       let todo = Todos.find(todo => {
         return id && todo.id === id;
       });
+
+      // ID缓存会导致todo为undefined
+      if (!todo) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve([200, {
+              todo: {}
+            }]);
+          });
+        });
+      }
+
       // todo.count (等待完成数目)等于 todo.record（代办事项列表下面未被选择的数据
       todo ? todo.count = todo ? todo.record.filter((data) => {
         return data.checked === false;
